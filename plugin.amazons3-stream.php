@@ -52,11 +52,13 @@ function s3_stream_wp_generate_attachment_metadata($metadata) {
 	// Now append the path and trailingslashit
 	$filepath .= trailingslashit($metaFileInfo['dirname']);
 
-	foreach ($metadata['sizes'] as $size => $info) {
-		// Replace the raw filename with the 
-		$finalFile = $filepath . $info['file'];
-		s3_stream_handle_file_upload (array("file"=> $finalFile));
-	}
+  if (!empty($metadata['sizes'])) {
+    foreach ($metadata['sizes'] as $size => $info) {
+      // Replace the raw filename with the 
+      $finalFile = $filepath . $info['file'];
+      s3_stream_handle_file_upload (array("file"=> $finalFile));
+    }   
+  }
 
 	return $metadata;
 }
