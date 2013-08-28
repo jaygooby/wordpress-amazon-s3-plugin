@@ -44,9 +44,9 @@ function s3_stream_handle_file_upload($file) {
 add_filter('wp_generate_attachment_metadata','s3_stream_wp_generate_attachment_metadata');
 add_filter('wp_update_attachment_metadata','s3_stream_wp_generate_attachment_metadata');
 function s3_stream_wp_generate_attachment_metadata($metadata) {
-	$upload_path = get_option('upload_path');
-	$upload_path = empty($upload_path) ? 'uploads' : $upload_path;
-	$filepath = trailingslashit(trailingslashit(WP_CONTENT_DIR) . $upload_path);
+  $upload_path = get_option('upload_path');
+  $upload_path = empty($upload_path) ? trailingslashit(WP_CONTENT_DIR) . 'uploads' : trailingslashit(ABSPATH) . $upload_path;
+  $filepath = trailingslashit($upload_path);
 	// Parse the file on the filesystem
 	$metaFileInfo = pathinfo($metadata['file']);
 	// Now append the path and trailingslashit
